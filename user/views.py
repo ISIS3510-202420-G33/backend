@@ -7,6 +7,7 @@ from django.views.decorators.csrf import csrf_exempt
 # Create your views here.
 @csrf_exempt
 def user_view(request):
+
     if request.method == 'POST':
         user_dto = ul.create_user(json.loads(request.body))
 
@@ -31,3 +32,18 @@ def authenticate_view(request):
 
         user = serializers.serialize('json', [user_dto])
         return HttpResponse(user, 'application/json')
+    
+@csrf_exempt
+def like_view(request):
+    if request.method == 'POST':
+        user_dto = ul.like_artwork(json.loads(request.body))
+        user = serializers.serialize('json', [user_dto])
+        return HttpResponse(user, 'application/json')
+
+
+
+def users_view(request):
+    if request.method == 'GET':
+        users_dto = ul.get_users()
+        users = serializers.serialize('json', users_dto)
+        return HttpResponse(users, 'application/json')
