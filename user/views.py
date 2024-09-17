@@ -40,7 +40,11 @@ def like_view(request):
         user = serializers.serialize('json', [user_dto])
         return HttpResponse(user, 'application/json')
 
-
+def liked_view(request, pk):
+    if request.method == 'GET':
+        artworks_dto = ul.liked_arworks(pk)
+        artworks = serializers.serialize('json', artworks_dto)
+        return HttpResponse(artworks, 'application/json')
 
 def users_view(request):
     if request.method == 'GET':

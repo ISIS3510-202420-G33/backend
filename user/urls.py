@@ -7,6 +7,7 @@ urlpatterns = [
     path('create', views.user_view, name='museum_create'),
     path('authenticate', views.authenticate_view),
     path('like', views.like_view),
+    path('liked/<int:pk>', views.liked_view),
     path('', views.users_view)
     
 ]

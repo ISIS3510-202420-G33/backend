@@ -43,6 +43,13 @@ def like_artwork(data):
     return user
 
 
+def liked_arworks(var_pk):
+    user = User.objects.get(pk=var_pk)
+    liked = user.likedArtowks.all()
+
+    return liked
+
+
 
 def get_users():
     users = User.objects.all()
