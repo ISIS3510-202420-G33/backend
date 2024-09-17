@@ -39,7 +39,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'museum',
     'artwork',
-    'artist'
+    'artist',
+    'image',
+    'comment',
+    'user'
 ]
 
 MIDDLEWARE = [
