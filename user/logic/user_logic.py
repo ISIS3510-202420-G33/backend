@@ -10,3 +10,17 @@ def create_user(newUserData):
     newUser = User.objects.create(name = name, userName = userName, email = email, password=password)
 
     return newUser
+
+def authenticate_user(userData):
+    try:
+        userName = userData.get('userName')
+        password = userData.get('password')
+    
+        user = User.objects.get(userName=userName)
+        
+        if user.password == password:
+            return user
+        else:
+            return "PassError"
+    except User.DoesNotExist:
+        return "UserError"

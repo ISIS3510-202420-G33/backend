@@ -11,3 +11,18 @@ def user_view(request):
         user_dto = ul.create_user(json.loads(request.body))
         user = serializers.serialize('json', [user_dto])
         return HttpResponse(user, 'application/json')
+    
+    
+@csrf_exempt
+def authenticate_view(request):
+    if request.method == 'POST':
+        user_dto = ul.authenticate_user(json.loads(request.body))
+
+        if user_dto == "PassError":
+            return HttpResponse("Invalid password", status=401, content_type='text/plain')
+        
+        elif user_dto == "UserError":
+            return HttpResponse("Invalid User", status=401, content_type='text/plain')
+
+        user = serializers.serialize('json', [user_dto])
+        return HttpResponse(user, 'application/json')

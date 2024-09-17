@@ -5,8 +5,8 @@ from artwork.models import Artwork
 class User(models.Model):
 
     name = models.CharField(max_length=50, default=None)
-    userName = models.CharField(max_length=50, default=None)
-    email = models.EmailField(max_length=254, default=None)
+    userName = models.CharField(max_length=50, unique=True, default=None)
+    email = models.EmailField(max_length=254, unique=True, default=None)
     password = models.CharField(max_length=50, default=None)
 
     #Relacion con artwork
