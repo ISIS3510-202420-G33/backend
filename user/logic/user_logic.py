@@ -7,10 +7,14 @@ def create_user(newUserData):
     email = newUserData.get('email')
     password = newUserData.get('password')
 
-    newUser = User.objects.create(name = name, userName = userName, email = email, password=password)
 
-    return newUser
+    try:
+        newUser = User.objects.create(name = name, userName = userName, email = email, password=password)
+        return newUser
 
+    except:
+        return "Problema"
+    
 def authenticate_user(userData):
     try:
         userName = userData.get('userName')

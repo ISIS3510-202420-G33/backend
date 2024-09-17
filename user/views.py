@@ -9,6 +9,11 @@ from django.views.decorators.csrf import csrf_exempt
 def user_view(request):
     if request.method == 'POST':
         user_dto = ul.create_user(json.loads(request.body))
+
+        if user_dto == "Problema":
+            return HttpResponse("Usuario o email ya existe", status=401, content_type='text/plain')
+
+
         user = serializers.serialize('json', [user_dto])
         return HttpResponse(user, 'application/json')
     
