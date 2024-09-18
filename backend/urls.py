@@ -24,5 +24,6 @@ urlpatterns = [
     path('museums/', include('museum.urls')),
     path('user/', include('user.urls')),
     path('artwork/', include('artwork.urls')),
-    path('artist/', include('artist.urls'))
+    path('artist/', include('artist.urls')),
+    path('comment/', include('comment.urls'))
 ]

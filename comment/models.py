@@ -12,7 +12,8 @@ class Comment (models.Model):
     artwork = models.ForeignKey(
         Artwork,
         on_delete=models.CASCADE,
-        default=None
+        default=None,
+        related_name='comments'
     )
 
     #Relacion con Usuario
