@@ -14,3 +14,9 @@ def artwork_comments_view(request, pk):
         comments = al.get_comments(pk)
         comments_dto = serializers.serialize('json', comments)
         return HttpResponse(comments_dto, 'application/json')
+    
+def artworks_by_artist_view(request, pk):
+    if request.method == 'GET':
+        artworks = al.get_artworks_by_artist(pk)
+        artworks_dto = serializers.serialize('json', artworks)
+        return HttpResponse(artworks_dto, 'application/json')
