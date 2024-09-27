@@ -10,4 +10,4 @@ class User(models.Model):
     password = models.CharField(max_length=50, default=None)
 
     #Relacion con artwork
-    likedArtowks = models.ManyToManyField(Artwork, related_name='usersLiked')
+    likedArtowks = models.ManyToManyField(Artwork, related_name='usersLiked', blank=True)
