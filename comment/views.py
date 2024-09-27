@@ -9,8 +9,6 @@ from .logic import comment_logic as cl
 def comment_view(request):
     if request.method == 'POST':
         comment_dto = cl.comment_create(json.loads(request.body))
-        print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
-        print(comment_dto.user)
         comment = serializers.serialize('json', [comment_dto])
         return HttpResponse(comment, 'application/json')
     
