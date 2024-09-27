@@ -11,7 +11,7 @@ class Museum(models.Model):
     city = models.CharField(max_length=50, default='Unknown City')
     country = models.CharField(max_length=50, default='Unknown Country')
     description = models.CharField(max_length=500, default='Unknown Description')
-    image = models.ImageField(upload_to='museum/', null=False, blank=False)
+    image = models.CharField(max_length=500, default='Unknown Description')
 
 
     def __str__(self) -> str:
