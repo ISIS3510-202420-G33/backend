@@ -4,7 +4,7 @@ from django.db import models
 class Artist(models.Model):
     name = models.CharField(max_length=100)
     biography = models.TextField()
-    image = models.ImageField(upload_to='artists/', null=False, blank=False)
+    image = models.CharField(max_length=500, default=None)
 
     def __str__(self):
         return self.name

@@ -5,7 +5,7 @@ from user.models import User
 # Create your models here.
 class Comment (models.Model):
 
-    content = models.CharField(max_length=200)
+    content = models.CharField(max_length=400)
     date = models.DateField()
 
     #Relacion con Artwork
