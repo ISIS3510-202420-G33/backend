@@ -1,6 +1,9 @@
 import json
 from django.http import HttpResponse
 from django.core import serializers
+
+from artwork.models import Artwork
+from user.models import User
 from .logic import user_logic as ul
 from django.views.decorators.csrf import csrf_exempt
 
@@ -39,6 +42,20 @@ def like_view(request):
         user_dto = ul.like_artwork(json.loads(request.body))
         user = serializers.serialize('json', [user_dto])
         return HttpResponse(user, 'application/json')
+   
+@csrf_exempt
+def unlike_view(request, user_id, artwork_id):
+    if request.method == 'DELETE':
+        try:
+            user = User.objects.get(pk=user_id)
+            artwork = Artwork.objects.get(pk=artwork_id)
+            user.likedArtowks.remove(artwork)
+            return HttpResponse(status=204)  # No content, éxito
+        except User.DoesNotExist:
+            return HttpResponse("User not found.", status=404)
+        except Artwork.DoesNotExist:
+            return HttpResponse("Artwork not found.", status=404)
+    return HttpResponse("Invalid request method.", status=400)
 
 def liked_view(request, pk):
     if request.method == 'GET':
