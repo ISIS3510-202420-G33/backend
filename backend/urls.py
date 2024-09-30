@@ -28,4 +28,5 @@ urlpatterns = [
     path('artworks/', include('artwork.urls')),
     path('artists/', include('artist.urls')),
     path('comments/', include('comment.urls'))
+    path('analytic_engine/', include('analytic_engine.urls')),
 ]

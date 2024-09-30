@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'artwork',
     'comment',
     'museum',
-    'user'
+    'user',
+    'analytic_engine',
 ]
 
 MIDDLEWARE = [

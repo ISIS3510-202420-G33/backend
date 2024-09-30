@@ -1,5 +1,5 @@
-from ..models import User
-from ..models import Artwork
+from ..models import User, Artwork
+
 
 def create_user(newUserData):
     
@@ -15,7 +15,8 @@ def create_user(newUserData):
 
     except:
         return "Problema"
-    
+
+
 def authenticate_user(userData):
     try:
         userName = userData.get('userName')
@@ -29,6 +30,7 @@ def authenticate_user(userData):
             return "PassError"
     except User.DoesNotExist:
         return "UserError"
+
 
 def like_artwork(data):
 
@@ -48,7 +50,6 @@ def liked_arworks(var_pk):
     liked = user.likedArtowks.all()
 
     return liked
-
 
 
 def get_users():
