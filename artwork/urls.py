@@ -5,5 +5,6 @@ from . import views
 urlpatterns = [
     path('<int:pk>', views.artwork_view),
     path('comments/<int:pk>', views.artwork_comments_view),
-    path('artist/<int:pk>', views.artworks_by_artist_view)
+    path('artist/<int:pk>', views.artworks_by_artist_view),
+    path('', views.artworks_list_view)
 ]

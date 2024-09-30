@@ -8,3 +8,9 @@ def artist_view(request, pk):
         artist = al.get_artist(pk)
         artist_dto = serializers.serialize('json', [artist])
         return HttpResponse(artist_dto, 'application/json')
+    
+def artist_list_view(request):
+    if request.method == 'GET':
+        artists = al.get_all_artist()
+        artists_dto = serializers.serialize('json', artists)
+        return HttpResponse(artists_dto, 'aplication/json')

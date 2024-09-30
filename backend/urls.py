@@ -25,7 +25,7 @@ urlpatterns = [
     path('home/', views.home),
     path('museums/', include('museum.urls')),
     path('user/', include('user.urls')),
-    path('artwork/', include('artwork.urls')),
-    path('artist/', include('artist.urls')),
-    path('comment/', include('comment.urls'))
+    path('artworks/', include('artwork.urls')),
+    path('artists/', include('artist.urls')),
+    path('comments/', include('comment.urls'))
 ]

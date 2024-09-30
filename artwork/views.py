@@ -8,6 +8,12 @@ def artwork_view(request, pk):
         artwork = al.get_artwork(pk)
         artwork_dto = serializers.serialize('json', [artwork])
         return HttpResponse(artwork_dto, 'application/json')
+
+def artworks_list_view(request):
+    if request.method == 'GET':
+        artworks = al.get_all_artworks()
+        artworks_dto = serializers.serialize('json', artworks)
+        return HttpResponse(artworks_dto, 'aplication/json')
     
 def artwork_comments_view(request, pk):
      if request.method == 'GET':
