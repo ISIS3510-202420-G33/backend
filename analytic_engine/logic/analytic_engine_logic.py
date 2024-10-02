@@ -2,8 +2,12 @@ from user.models import User
 from artwork.models import Artwork
 from django.db.models import Q
 import math
-from museum.models import Museum  # Suponiendo que tienes un modelo de museo
-
+from museum.models import Museum
+from likehistory.models import LikeHistory
+from artwork.models import Artwork
+from django.utils import timezone
+from datetime import timedelta
+from django.db.models import Count
 
 def recommend_artworks(userId):
     try:
@@ -69,4 +73,32 @@ def haversine_distance(lat1, lon1, lat2, lon2):
     distance = R * c
     return distance
 
+def get_most_liked_lastmonth():
+    """
+    Obtiene la obra con más likes en los últimos 30 días.
+    """
+    try:
+        # Obtener la fecha de hace 30 días
+        last_30_days = timezone.now().date() - timedelta(days=30)
+
+        # Filtrar los likes de los últimos 30 días, agrupar por obra y contar
+        most_liked = LikeHistory.objects.filter(date_liked__gte=last_30_days) \
+                                        .values('artwork') \
+                                        .annotate(like_count=Count('artwork')) \
+                                        .order_by('-like_count') \
+                                        .first()
+
+        if most_liked:
+            # Obtener la obra de arte más likeada
+            artwork_id = most_liked['artwork']
+            artwork = Artwork.objects.get(id=artwork_id)
+            return {
+                'artwork': artwork,
+                'like_count': most_liked['like_count']
+            }
+
+        return None  # Si no hay obras con likes en los últimos 30 días
+
+    except Exception as e:
+        raise ValueError(f"Error fetching most liked artwork: {str(e)}")
        

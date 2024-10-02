@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'comment',
     'museum',
     'user',
+    'likehistory',
     'analytic_engine',
 ]
 

@@ -12,6 +12,10 @@ def get_artworks_by_artist(artist_id):
     artworks = Artwork.objects.filter(artist_id=artist_id)
     return artworks
 
+def get_artworks_by_museum(museum_id):
+    artworks = Artwork.objects.filter(museum_id=museum_id)
+    return artworks
+
 def get_comments(var_pk):
     artwork = Artwork.objects.get(pk=var_pk)
     comments = artwork.comments.all()
