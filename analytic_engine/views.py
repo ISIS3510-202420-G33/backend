@@ -51,14 +51,8 @@ def most_liked_artwork_view(request):
             result = ae.get_most_liked_lastmonth()
 
             if result:
-                artwork = result['artwork']
-                response_data = {
-                    'artwork_id': artwork.id,
-                    'title': artwork.name,
-                    'artist': artwork.artist.name,  # Asumiendo que tienes un campo 'name' en el modelo Artist
-                    'likes': result['like_count'],
-                }
-                return JsonResponse(response_data, status=200)
+                artwork_dto = serializers.serialize('json', [result])
+                return HttpResponse(artwork_dto, 'application/json')
 
             return JsonResponse({'message': 'No artworks liked in the last 30 days'}, status=404)
 

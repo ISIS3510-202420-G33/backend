@@ -96,10 +96,7 @@ def get_most_liked_lastmonth():
             # Obtener la obra de arte más likeada
             artwork_id = most_liked['artwork']
             artwork = Artwork.objects.get(id=artwork_id)
-            return {
-                'artwork': artwork,
-                'like_count': most_liked['like_count']
-            }
+            return artwork
 
         return None  # Si no hay obras con likes en los últimos 30 días
 
