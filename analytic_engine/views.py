@@ -43,3 +43,26 @@ def nearest_museums_view(request):
             return JsonResponse({'error': 'Invalid JSON input.'}, status=400)
 
     return JsonResponse({'error': 'Invalid request method.'}, status=405)
+
+def most_liked_artwork_view(request):
+    if request.method == 'GET':
+        try:
+            # Llamar a la lógica para obtener la obra con más likes
+            result = ae.get_most_liked_lastmonth()
+
+            if result:
+                artwork = result['artwork']
+                response_data = {
+                    'artwork_id': artwork.id,
+                    'title': artwork.name,
+                    'artist': artwork.artist.name,  # Asumiendo que tienes un campo 'name' en el modelo Artist
+                    'likes': result['like_count'],
+                }
+                return JsonResponse(response_data, status=200)
+
+            return JsonResponse({'message': 'No artworks liked in the last 30 days'}, status=404)
+
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=500)
+
+    return JsonResponse({'error': 'Invalid request method'}, status=405)

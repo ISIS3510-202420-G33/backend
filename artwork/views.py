@@ -26,3 +26,9 @@ def artworks_by_artist_view(request, pk):
         artworks = al.get_artworks_by_artist(pk)
         artworks_dto = serializers.serialize('json', artworks)
         return HttpResponse(artworks_dto, 'application/json')
+    
+def artworks_by_museum_view(request, pk):
+    if request.method == 'GET':
+        artworks = al.get_artworks_by_museum(pk)
+        artworks_dto = serializers.serialize('json', artworks)
+        return HttpResponse(artworks_dto, 'application/json')

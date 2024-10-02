@@ -10,5 +10,4 @@ urlpatterns = [
     path('liked/<int:pk>', views.liked_view),
     path('liked/<int:user_id>/<int:artwork_id>', views.unlike_view, name='unlike_artwork'), 
     path('', views.users_view)
-    
 ]

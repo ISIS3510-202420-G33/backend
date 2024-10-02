@@ -6,6 +6,7 @@ from artwork.models import Artwork
 from user.models import User
 from .logic import user_logic as ul
 from django.views.decorators.csrf import csrf_exempt
+from likehistory.logic import likehistory_logic as lk
 
 # Create your views here.
 @csrf_exempt
@@ -39,8 +40,18 @@ def authenticate_view(request):
 @csrf_exempt
 def like_view(request):
     if request.method == 'POST':
-        user_dto = ul.like_artwork(json.loads(request.body))
+        # Parsear el cuerpo de la solicitud como JSON
+        data = json.loads(request.body)
+        user_id = data.get('userId')
+        artwork_id = data.get('artworkId')
+
+        # 1. Lógica para agregar el like al usuario
+        user_dto = ul.like_artwork(data)
         user = serializers.serialize('json', [user_dto])
+
+        # 2. Lógica para agregar el like a LikeHistory
+        lk.add_like(user_id, artwork_id)  # Se usa la fecha actual del sistema
+
         return HttpResponse(user, 'application/json')
    
 @csrf_exempt
