@@ -45,7 +45,11 @@ def get_nearest_museums(user_latitude, user_longitude):
         museum_distances = []
 
         for museum in all_museums:
-            distance = haversine_distance(user_latitude, user_longitude, museum.latitude, museum.longitude)
+            user_latitude = float(user_latitude)
+            user_longitude = float(user_latitude)
+            latitude = float(museum.latitude)
+            longitude = float(museum.longitude)
+            distance = haversine_distance(user_latitude, user_longitude, latitude, longitude)
             museum_distances.append((museum, distance))
 
         # Ordena la lista por distancia (ascendente)
