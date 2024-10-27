@@ -102,4 +102,16 @@ def get_most_liked_lastmonth():
 
     except Exception as e:
         raise ValueError(f"Error fetching most liked artwork: {str(e)}")
+
+def get_promoted_artworks():
+    """
+    Obtiene las obras promocionadas.
+    """
+    try:
+        promoted_artworks = Artwork.objects.filter(isPromoted=True)
+        return promoted_artworks
+
+    except Exception as e:
+        raise ValueError(f"Error fetching promoted artworks: {str(e)}")
+
        

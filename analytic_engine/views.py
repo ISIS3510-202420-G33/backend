@@ -60,3 +60,20 @@ def most_liked_artwork_view(request):
             return JsonResponse({'error': str(e)}, status=500)
 
     return JsonResponse({'error': 'Invalid request method'}, status=405)
+
+def promoted_artworks_view(request):
+    if request.method == 'GET':
+        try:
+            # Llamar a la lógica para obtener las obras promocionadas
+            promoted_artworks = ae.get_promoted_artworks()
+
+            if promoted_artworks:
+                artworks_dto = serializers.serialize('json', promoted_artworks)
+                return HttpResponse(artworks_dto, 'application/json')
+            
+            return JsonResponse({'message': 'No promoted artworks found'}, status=404)
+
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=500)
+
+    return JsonResponse({'error': 'Invalid request method'}, status=405)
