@@ -37,6 +37,7 @@ def authenticate_view(request):
         user = serializers.serialize('json', [user_dto])
         return HttpResponse(user, 'application/json')
     
+
 @csrf_exempt
 def like_view(request):
     if request.method == 'POST':
@@ -53,7 +54,8 @@ def like_view(request):
         lk.add_like(user_id, artwork_id)  # Se usa la fecha actual del sistema
 
         return HttpResponse(user, 'application/json')
-   
+
+
 @csrf_exempt
 def unlike_view(request, user_id, artwork_id):
     if request.method == 'DELETE':
@@ -68,14 +70,28 @@ def unlike_view(request, user_id, artwork_id):
             return HttpResponse("Artwork not found.", status=404)
     return HttpResponse("Invalid request method.", status=400)
 
+
 def liked_view(request, pk):
     if request.method == 'GET':
         artworks_dto = ul.liked_arworks(pk)
         artworks = serializers.serialize('json', artworks_dto)
         return HttpResponse(artworks, 'application/json')
 
+
 def users_view(request):
     if request.method == 'GET':
         users_dto = ul.get_users()
         users = serializers.serialize('json', users_dto)
         return HttpResponse(users, 'application/json')
+
+
+def is_liked_view(request, user_id, artwork_id):
+    if request.method == 'GET':
+        try:
+            is_liked = ul.isArtworkLiked(user_id, artwork_id)
+            return HttpResponse(is_liked, 'application/json')
+        except User.DoesNotExist:
+            return HttpResponse("User not found.", status=404)
+        except Artwork.DoesNotExist:
+            return HttpResponse("Artwork not found.", status=404)
+    return HttpResponse("Invalid request method.", status=400)

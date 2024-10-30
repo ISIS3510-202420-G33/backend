@@ -12,7 +12,7 @@ class Artwork(models.Model):
     interpretation = models.CharField(max_length=500, default=None)
     advancedInfo = models.CharField(max_length=1000, default=None)
     image = models.CharField(max_length=500, default=None)
-    isPromoted = models.BooleanField(default=False)
+    isSpotlight = models.BooleanField(default=False)
 
     #Relacion con museo
     museum = models.ForeignKey(Museum, on_delete=models.CASCADE, default=None)

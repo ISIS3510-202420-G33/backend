@@ -55,3 +55,13 @@ def liked_arworks(var_pk):
 def get_users():
     users = User.objects.all()
     return users
+
+
+def isArtworkLiked(userId, artworkId):
+    user = User.objects.get(pk=userId)
+    artwork = Artwork.objects.get(pk=artworkId)
+
+    if artwork in user.likedArtowks.all():
+        return True
+    else:
+        return False

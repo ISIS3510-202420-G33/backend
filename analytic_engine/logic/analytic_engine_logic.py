@@ -103,13 +103,13 @@ def get_most_liked_lastmonth():
     except Exception as e:
         raise ValueError(f"Error fetching most liked artwork: {str(e)}")
 
-def get_promoted_artworks():
+def get_spotlight_artworks():
     """
     Obtiene las obras promocionadas.
     """
     try:
-        promoted_artworks = Artwork.objects.filter(isPromoted=True)
-        return promoted_artworks
+        spotlight_artworks = Artwork.objects.filter(isSpotlight=True)
+        return spotlight_artworks
 
     except Exception as e:
         raise ValueError(f"Error fetching promoted artworks: {str(e)}")

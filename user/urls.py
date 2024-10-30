@@ -8,6 +8,7 @@ urlpatterns = [
     path('authenticate', views.authenticate_view),
     path('like', views.like_view),
     path('liked/<int:pk>', views.liked_view),
+    path('isLiked/<int:user_id>/<int:artwork_id>', views.is_liked_view),
     path('liked/<int:user_id>/<int:artwork_id>', views.unlike_view, name='unlike_artwork'), 
     path('', views.users_view)
 ]
