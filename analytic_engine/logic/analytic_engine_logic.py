@@ -114,4 +114,46 @@ def get_spotlight_artworks():
     except Exception as e:
         raise ValueError(f"Error fetching promoted artworks: {str(e)}")
 
-       
+def get_most_engaged_items(limit_techniques=3, limit_artists=3, limit_categories=2, limit_exhibitions=2):
+    """
+    Obtiene las técnicas, artistas y categorías de museos más "liked".
+    """
+    try:
+        # Obtener las obras más "liked" y sus detalles
+        liked_artworks = Artwork.objects.filter(usersLiked__isnull=False).distinct()
+
+        # Obtener técnicas con límite
+        techniques = liked_artworks.values('technique').annotate(like_count=Count('usersLiked')).order_by('-like_count')[:limit_techniques]
+
+        # Obtener artistas con límite
+        artists = liked_artworks.values('artist__name').annotate(like_count=Count('usersLiked')).order_by('-like_count')[:limit_artists]
+
+        # Obtener categorías de museos con límite
+        museum_categories = liked_artworks.values('museum__category').annotate(like_count=Count('usersLiked')).order_by('-like_count')[:limit_categories]
+
+        # Obtener una lista de obras más "liked" con límite
+        most_liked_artworks = liked_artworks.annotate(like_count=Count('usersLiked')).order_by('-like_count')[:limit_exhibitions]
+
+        # Crear una lista de características para la exposición
+        exhibition_details = []
+        for artwork in most_liked_artworks:
+            exhibition_details.append({
+                'name': artwork.name,
+                'artist': artwork.artist.name,
+                'technique': artwork.technique,
+                'museum': artwork.museum.name,
+                'category': artwork.museum.category
+            })
+
+        return {
+            'most_liked_techniques': list(techniques),  # Eliminar count
+            'most_liked_artists': list(artists),         # Eliminar count
+            'most_liked_museum_categories': list(museum_categories),  # Eliminar count
+            'exhibition_details': exhibition_details
+        }
+
+    except Exception as e:
+        raise ValueError(f"Error fetching most engaged items: {str(e)}")
+
+
+   
