@@ -77,3 +77,27 @@ def spotlight_artworks_view(request):
             return JsonResponse({'error': str(e)}, status=500)
 
     return JsonResponse({'error': 'Invalid request method'}, status=405)
+
+@csrf_exempt
+def most_engaged_artworks_view(request):
+    if request.method == 'GET':
+        try:
+            # Obtener parámetros de límite de la consulta
+            limit_techniques = int(request.GET.get('limit_techniques', 3))  
+            limit_artists = int(request.GET.get('limit_artists', 3))        
+            limit_categories = int(request.GET.get('limit_categories', 2))  
+            limit_exhibitions = int(request.GET.get('limit_exhibitions', 2)) 
+            
+            # Llamar a la lógica para obtener los elementos más comprometidos
+            engaged_items = ae.get_most_engaged_items(
+                limit_techniques=limit_techniques,
+                limit_artists=limit_artists,
+                limit_categories=limit_categories,
+                limit_exhibitions=limit_exhibitions
+            )
+            return JsonResponse(engaged_items, safe=False)
+
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=500)
+
+    return JsonResponse({'error': 'Invalid request method'}, status=405)
